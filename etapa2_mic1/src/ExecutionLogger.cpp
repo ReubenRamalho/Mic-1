@@ -57,11 +57,13 @@ void ExecutionLogger::writeCycle(std::size_t cycle,
     }
     else
     {
-        out << "b = " << toBinary32(result.b) << "\n";
-        out << "a = " << toBinary32(result.a) << "\n";
-        out << "s = " << toBinary32(result.s) << "\n";
+        out << "b  = " << toBinary32(result.b) << "\n";
+        out << "a  = " << toBinary32(result.a) << "\n";
+        out << "s  = " << toBinary32(result.s) << "\n";
         out << "sd = " << toBinary32(result.sd) << "\n";
         out << "co = " << result.co << "\n";
+        out << "n  = " << result.n << "\n";
+        out << "z  = " << result.z << "\n";
     }
     out << "============================================================\n";
 }

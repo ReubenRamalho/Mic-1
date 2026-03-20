@@ -75,7 +75,7 @@ ALUResult ALU::execute(uint32_t inputA, uint32_t inputB, const Instruction& inst
         result.sd = ((result.s >> 1) | msb);
     }
 
-    result.n        = (result.sd & (1 << 31)); // bit mais significativo = 1
+    result.n        = ((result.sd & (1 << 31)) != 0); // bit mais significativo = 1
     result.z        = (result.sd == 0);
     result.invalido = (sll8 && sra1);
 
