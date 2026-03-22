@@ -7,10 +7,22 @@
 /**
  * @brief Representa os registradores usados na Etapa 1.
  */
-class Registers {
+class Registers
+{
 private:
+    std::size_t mar;
+    std::size_t mdr;
     std::size_t pc;
+    std::size_t mbr;
+    std::size_t sp;
+    std::size_t lv;
+    std::size_t cpp;
+    std::size_t tos;
+    std::size_t opc;
+    std::size_t h;
     std::string ir;
+
+    bool invalidRegister;
 
 public:
     /**
@@ -19,27 +31,29 @@ public:
     Registers();
 
     /**
-     * @brief Define o valor do PC.
-     * @param value Novo valor do PC.
+     * @brief Carrega os valores dos registradores a partir de um arquivo texto.
+     * @param fileName Caminho do arquivo de instruções.
      */
-    void setPC(std::size_t value);
+    void loadFromFile(const std::string &fileName);
 
     /**
-     * @brief Incrementa o PC em uma unidade.
+     * @brief atualiza o valor de um registrador
+     * @param registerName nome do registrador
+     * @param value        valor que o registrador deve assumir
      */
-    void incrementPC();
+    void setRegisterValue(const std::string &registerName, std::size_t value);
+
+    /**
+     * @brief Recupera o valor armazenado em um registrador
+     * @param registerName nome do registrador.
+     */
+    size_t getRegisterValue(const std::string &registerName);
 
     /**
      * @brief Define o valor do IR.
      * @param value Palavra de instrução atual.
      */
-    void setIR(const std::string& value);
-
-    /**
-     * @brief Retorna o valor atual do PC.
-     * @return Valor atual do PC.
-     */
-    std::size_t getPC() const;
+    void setIR(const std::string &value);
 
     /**
      * @brief Retorna o valor atual do IR.

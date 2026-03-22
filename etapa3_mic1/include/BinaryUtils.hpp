@@ -5,6 +5,13 @@
 #include <string>
 
 /**
+ * @brief Converte uma string binária para um inteiro de 32 bits.
+ * @param value Valor a ser convertido.
+ * @return String binária com 32 caracteres.
+ */
+std::size_t toString32bits(const std::string &binaryStr);
+
+/**
  * @brief Converte um inteiro de 32 bits para sua representação binária.
  * @param value Valor a ser convertido.
  * @return String binária com 32 caracteres.
@@ -16,6 +23,6 @@ std::string toBinary32(uint32_t value);
  * @param text Texto original.
  * @return Texto sem espaços laterais.
  */
-std::string trim(const std::string& text);
+std::string trim(const std::string &text);
 
 #endif

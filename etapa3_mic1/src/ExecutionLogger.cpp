@@ -10,7 +10,8 @@
  * @param value Valor a ser convertido.
  * @return std::string Representação binária com 32 bits.
  */
-static std::string toBinary32(uint32_t value) {
+static std::string toBinary32(uint32_t value)
+{
     return std::bitset<32>(value).to_string();
 }
 
@@ -18,10 +19,12 @@ static std::string toBinary32(uint32_t value) {
  * @brief Cria o logger e abre o arquivo de saída.
  * @param fileName Caminho do arquivo de log.
  */
-ExecutionLogger::ExecutionLogger(const std::string& fileName) {
+ExecutionLogger::ExecutionLogger(const std::string &fileName)
+{
     out.open(fileName);
 
-    if (!out.is_open()) {
+    if (!out.is_open())
+    {
         throw std::runtime_error("Nao foi possivel criar o arquivo de log: " + fileName);
     }
 }
@@ -31,7 +34,8 @@ ExecutionLogger::ExecutionLogger(const std::string& fileName) {
  * @param inputB Valor original de B.
  * @param inputA Valor original de A.
  */
-void ExecutionLogger::writeHeader(uint32_t inputB, uint32_t inputA) {
+void ExecutionLogger::writeHeader(uint32_t inputB, uint32_t inputA)
+{
     out << "b = " << toBinary32(inputB) << "\n";
     out << "a = " << toBinary32(inputA) << "\n\n";
     out << "Start of Program\n";
@@ -45,10 +49,11 @@ void ExecutionLogger::writeHeader(uint32_t inputB, uint32_t inputA) {
  * @param result Resultado do último ciclo da ALU.
  */
 void ExecutionLogger::writeCycle(std::size_t cycle,
-                                 const Registers& registers,
-                                 const ALUResult& result) {
+                                 const Registers &registers,
+                                 const ALUResult &result)
+{
     out << "Cycle " << cycle << "\n\n";
-    out << "PC = " << registers.getPC() + 1 << "\n";
+    // out << "PC = " << registers.getPC() + 1 << "\n";
     out << "IR = " << registers.getIR() << "\n";
 
     if (result.invalido)
@@ -73,7 +78,8 @@ void ExecutionLogger::writeCycle(std::size_t cycle,
  * @param cycle Número do ciclo final.
  * @param pc Valor final do contador de programa.
  */
-void ExecutionLogger::writeEndOfProgram(std::size_t cycle, std::size_t pc) {
+void ExecutionLogger::writeEndOfProgram(std::size_t cycle, std::size_t pc)
+{
     out << "Cycle " << cycle << "\n\n";
     out << "PC = " << pc << "\n";
     out << "> Line is empty, EOP.\n";
