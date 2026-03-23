@@ -9,7 +9,8 @@
  * A ordem dos sinais é:
  * F0 F1 ENA ENB INVA INC
  */
-class Instruction {
+class Instruction
+{
 private:
     int sll8;
     int sra1;
@@ -19,7 +20,9 @@ private:
     int enb;
     int inva;
     int inc;
-    std::string rawBits;
+    std::string ulaBits;
+    std::string cBits;
+    std::string bBits;
 
 public:
     /**
@@ -37,25 +40,26 @@ public:
      * @param enb Bit ENB.
      * @param inva Bit INVA.
      * @param inc Bit INC.
-     * @param rawBits Palavra binária original lida do arquivo.
+     * @param ulaBits trecho da ULA da palavra binária original lida do arquivo.
+     * @param cBits trecho do barramento C da palavra original lida do arquivo.
+     * @param bBits trecho do barramento B da palavra original lida do arquivo.
      */
     Instruction(
         int sll8, int sra1, int f0, int f1, int ena, int enb, int inva, int inc,
-        const std::string& rawBits
-    );
+        const std::string &ulaBits, const std::string &cBits, const std::string &bBits);
 
     /**
      * @brief Cria uma instrução a partir de uma string de 6 bits.
      * @param line Linha lida do arquivo.
      * @return Instrução construída.
      */
-    static Instruction fromString(const std::string& line);
+    static Instruction fromString(const std::string &line);
 
     /**
      * @brief Informa se a linha representa fim de programa.
      * @return true se a linha estiver vazia.
      */
-    static bool isEndOfProgramLine(const std::string& line);
+    static bool isEndOfProgramLine(const std::string &line);
 
     /** @brief Retorna o bit SLL8. */
     int getSLL8() const;
@@ -82,10 +86,22 @@ public:
     int getINC() const;
 
     /**
-     * @brief Retorna a palavra binária original.
-     * @return String com os 8 bits lidos do arquivo.
+     * @brief Retorna o trecho da ULA da palavra binária original.
+     * @return String com os 8 bits correspondentes à ULA da instrução.
      */
-    std::string getRawBits() const;
+    std::string getulaBits() const;
+
+    /**
+     * @brief Retorna o trecho do barramento C da palabra original.
+     * @return String com os 9 bits correspondentes ao barramento C.
+     */
+    std::string getcBits() const;
+
+    /**
+     * @brief Retorna o trecho do barramento B da palabra original.
+     * @return String com os 4 bits correspondentes ao barramento B.
+     */
+    std::string getbBits() const;
 };
 
 #endif

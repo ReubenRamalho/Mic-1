@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 
         Simulator simulator;
         simulator.loadRegisters(registersFile);
-        // simulator.loadProgram(programFile);
+        simulator.loadProgram(programFile);
         // simulator.run(logFile);
 
         std::cout << "Execução concluída com sucesso.\n";
