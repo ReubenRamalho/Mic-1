@@ -1,4 +1,4 @@
-#include "ProgramMemory.hpp"
+#include "../include/ProgramMemory.hpp"
 
 #include <cctype>
 #include <fstream>

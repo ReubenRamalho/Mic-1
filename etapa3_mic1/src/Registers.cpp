@@ -1,9 +1,9 @@
-#include "Registers.hpp"
-#include "BinaryUtils.hpp"
+#include "../include/Registers.hpp"
+#include "../include/BinaryUtils.hpp"
 #include <fstream>
 #include <stdexcept>
 
-Registers::Registers() : pc(0), ir("000000") {}
+Registers::Registers() : mar(0), mdr(0), pc(0), mbr(0), sp(0), lv(0), cpp(0), tos(0), opc(0), h(0), ir("000000") {}
 
 /**
  * @brief Carrega os valores dos registradores a partir de um arquivo texto.
@@ -127,7 +127,7 @@ void Registers::setRegisterValue(const std::string &registerName, std::size_t va
  * @brief Recupera o valor armazenado em um registrador
  * @param registerName nome do registrador.
  */
-size_t Registers::getRegisterValue(const std::string &registerName)
+size_t Registers::getRegisterValue(const std::string &registerName) const
 {
     if (registerName == "mar")
     {

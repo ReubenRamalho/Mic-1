@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "Simulator.hpp"
+#include "include/Simulator.hpp"
 
 // /**
 //  * @brief Converte uma string para um valor de 32 bits sem sinal.
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
         Simulator simulator;
         simulator.loadRegisters(registersFile);
         simulator.loadProgram(programFile);
-        // simulator.run(logFile);
+        simulator.run(logFile);
 
         std::cout << "Execução concluída com sucesso.\n";
         std::cout << "Programa lido: " << programFile << "\n";

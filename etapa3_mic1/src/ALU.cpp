@@ -20,13 +20,15 @@
  * @param instruction Instrução atual.
  * @return ALUResult Resultado completo da execução.
  */
-ALUResult ALU::execute(uint32_t inputA, uint32_t inputB, const Instruction& instruction) const {
+ALUResult ALU::execute(uint32_t inputA, uint32_t inputB, const Instruction &instruction) const
+{
     ALUResult result{};
 
     result.a = instruction.getENA() ? inputA : 0;
     result.b = instruction.getENB() ? inputB : 0;
 
-    if (instruction.getINVA()) {
+    if (instruction.getINVA())
+    {
         result.a = ~result.a;
     }
 
@@ -42,27 +44,34 @@ ALUResult ALU::execute(uint32_t inputA, uint32_t inputB, const Instruction& inst
     const uint32_t sumResult = static_cast<uint32_t>(sum64);
     const uint32_t carryOut = (sum64 >> 32) & 0x1;
 
-    const int f0    = instruction.getF0();
-    const int f1    = instruction.getF1();
+    const int f0 = instruction.getF0();
+    const int f1 = instruction.getF1();
 
     // Operações definidas for F0 e F1
-    if (f0 == 0 && f1 == 0) {
+    if (f0 == 0 && f1 == 0)
+    {
         result.s = andResult;
         result.co = 0;
-    } else if (f0 == 0 && f1 == 1) {
+    }
+    else if (f0 == 0 && f1 == 1)
+    {
         result.s = orResult;
         result.co = 0;
-    } else if (f0 == 1 && f1 == 0) {
+    }
+    else if (f0 == 1 && f1 == 0)
+    {
         result.s = notBResult;
         result.co = 0;
-    } else {
+    }
+    else
+    {
         result.s = sumResult;
         result.co = carryOut;
     }
 
     // Aplicação de SLL8 ou SRA1 (sempre após a operação de F0 e F1)
-    const int sll8  = instruction.getSLL8();
-    const int sra1  = instruction.getSRA1();
+    const int sll8 = instruction.getSLL8();
+    const int sra1 = instruction.getSRA1();
 
     result.sd = result.s;
     if (sll8)
@@ -75,8 +84,8 @@ ALUResult ALU::execute(uint32_t inputA, uint32_t inputB, const Instruction& inst
         result.sd = ((result.s >> 1) | msb);
     }
 
-    result.n        = ((result.sd & (1 << 31)) != 0); // bit mais significativo = 1
-    result.z        = (result.sd == 0);
+    result.n = ((result.sd & (1 << 31)) != 0); // bit mais significativo = 1
+    result.z = (result.sd == 0);
     result.invalido = (sll8 && sra1);
 
     return result;

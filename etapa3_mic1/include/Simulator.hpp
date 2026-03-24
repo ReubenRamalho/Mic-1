@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include "ALU.hpp"
+#include "CaminhoDeDados.hpp"
 #include "ProgramMemory.hpp"
 #include "Registers.hpp"
 
@@ -13,9 +14,8 @@
 class Simulator
 {
 private:
+    CaminhoDeDados caminhoDeDados;
     ProgramMemory programMemory;
-    Registers registers;
-    ALU alu;
     uint32_t inputA;
     uint32_t inputB;
 
@@ -23,7 +23,7 @@ public:
     // /**
     //  * @brief Constrói o simulador.
     //  */
-    // Simulator();
+    Simulator();
 
     /**
      * @brief Carrega o arquivo com as instruções da ULA.

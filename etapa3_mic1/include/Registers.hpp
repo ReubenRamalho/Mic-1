@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <string>
+#include <vector>
 
 /**
  * @brief Representa os registradores usados na Etapa 1.
@@ -21,8 +22,6 @@ private:
     std::size_t opc;
     std::size_t h;
     std::string ir;
-
-    bool invalidRegister;
 
 public:
     /**
@@ -47,7 +46,7 @@ public:
      * @brief Recupera o valor armazenado em um registrador
      * @param registerName nome do registrador.
      */
-    size_t getRegisterValue(const std::string &registerName);
+    size_t getRegisterValue(const std::string &registerName) const;
 
     /**
      * @brief Define o valor do IR.
@@ -60,6 +59,9 @@ public:
      * @return Palavra binária armazenada em IR.
      */
     std::string getIR() const;
+    std::vector<std::string> getRegisterNames() const {
+        return {"mar", "mdr", "pc", "mbr", "sp", "lv", "cpp", "tos", "opc", "h"};
+    }
 };
 
 #endif
