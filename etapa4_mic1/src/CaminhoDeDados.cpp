@@ -178,7 +178,7 @@ CaminhoDeDados::decodificador(const std::string &bBits) const {
   } else if (register_id == 1) {
     result_pair.second = "pc";
     result_pair.first = registers.getRegisterValue(result_pair.second);
-  } else if (register_id == 3) {
+  } else if (register_id == 2) {
     result_pair.second = "mbr";
 
     std::string extra_bits = "";
@@ -192,7 +192,7 @@ CaminhoDeDados::decodificador(const std::string &bBits) const {
     // std::cout << binary_mbr << "\n";
 
     result_pair.first = toString32bits(binary_mbr);
-  } else if (register_id == 2) {
+  } else if (register_id == 3) {
     result_pair.second = "mbru";
     result_pair.first = registers.getRegisterValue("mbr");
   } else if (register_id == 4) {
@@ -204,10 +204,10 @@ CaminhoDeDados::decodificador(const std::string &bBits) const {
   } else if (register_id == 6) {
     result_pair.second = "cpp";
     result_pair.first = registers.getRegisterValue(result_pair.second);
-  } else if (register_id == 8) {
+  } else if (register_id == 7) {
     result_pair.second = "tos";
     result_pair.first = registers.getRegisterValue(result_pair.second);
-  } else if (register_id == 7) {
+  } else if (register_id == 8) {
     result_pair.second = "opc";
     result_pair.first = registers.getRegisterValue(result_pair.second);
   }
