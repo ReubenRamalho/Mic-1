@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
         // const uint32_t inputB = parseWord32(argv[2]);
         const std::string registersFile = argv[1];
         const std::string programFile = argv[2];
-        const std::string logFile = (argc == 4) ? argv[3] : "data/log_etapa3.txt";
+        const std::string logFile = (argc == 4) ? argv[3] : "data/log_etapa2_tarefa2.txt";
 
         // std::cout << registersFile << std::endl;
         // std::cout << programFile << std::endl;
