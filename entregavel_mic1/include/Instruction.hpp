@@ -2,6 +2,7 @@
 #define INSTRUCTION_HPP
 
 #include <string>
+#include <vector>
 
 /**
  * @brief Representa uma instrução de 6 bits da ULA da Mic-1.
@@ -48,6 +49,26 @@ public:
   Instruction(int sll8, int sra1, int f0, int f1, int ena, int enb, int inva,
               int inc, const std::string &ulaBits, const std::string &cBits,
               const std::string &memoryBits, const std::string &bBits);
+
+  /**
+   * @brief Cria instruções a partir do comando DUP.
+   * @return Lista de instruções construídas.
+   */
+  static std::vector<Instruction> createDup();
+
+  /**
+   * @brief Cria instruções a partir do comando ILOAD.
+   * @param x Inteiro do ILOAD.
+   * @return Lista de instruções construídas.
+   */
+  static std::vector<Instruction> createIload(const int &x);
+
+  /**
+   * @brief Cria instruções a partir do comando BIPUSH.
+   * @param byte Byte do BIPUSH
+   * @return Lista de instruções construídas.
+   */
+  static std::vector<Instruction> createBipush(const std::string &byte);
 
   /**
    * @brief Cria uma instrução a partir de uma string de 6 bits.

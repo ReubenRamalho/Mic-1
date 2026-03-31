@@ -55,3 +55,48 @@ std::string Instruction::getulaBits() const { return ulaBits; }
 std::string Instruction::getcBits() const { return cBits; }
 std::string Instruction::getMemoryBits() const { return memoryBits; }
 std::string Instruction::getbBits() const { return bBits; }
+
+std::vector<Instruction> Instruction::createDup() {
+  std::vector<Instruction> instructions;
+  // MAR = SP = SP + 1
+  instructions.push_back(Instruction::fromString("00110101000001001000100"));
+
+  // MDR = TOS; wr
+  instructions.push_back(Instruction::fromString("00110100000000010100111"));
+
+  return instructions;
+}
+
+std::vector<Instruction> Instruction::createIload(const int &x) {
+  std::vector<Instruction> instructions;
+
+  // H = LV
+  instructions.push_back(Instruction::fromString("00110100100000000000101"));
+
+  for(int i=0; i < x; i++) {
+    // H = H + 1
+    instructions.push_back(Instruction::fromString("00111000100000000000000"));
+  }
+
+  // MAR = H; rd
+  instructions.push_back(Instruction::fromString("00111000000000001010000"));
+  // MAR = SP = SP + 1; wr
+  instructions.push_back(Instruction::fromString("00110101000001001100100"));
+  // TOS = MDR
+  instructions.push_back(Instruction::fromString("00110100001000000000000"));
+  
+  return instructions;
+}
+
+std::vector<Instruction> Instruction::createBipush(const std::string &byte) {
+  std::vector<Instruction> instructions;
+
+  // SP = MAR = SP + 1
+  instructions.push_back(Instruction::fromString("00110101000001001000100"));
+  // fetch
+  instructions.push_back(Instruction::fromString(byte + "000000000110000"));
+  // MDR = TOS = H; wr
+  instructions.push_back(Instruction::fromString("00111000001000010100000"));
+
+  return instructions;
+}
