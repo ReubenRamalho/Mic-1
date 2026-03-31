@@ -3,6 +3,7 @@
 #include <cctype>
 #include <fstream>
 #include <stdexcept>
+#include <sstream>
 
 /**
  * @brief Carrega as instruções a partir de um arquivo texto.
@@ -24,18 +25,56 @@ void ProgramMemory::loadFromFile(const std::string& fileName) {
         lineNumber++;
 
         std::string cleaned;
-        for (char c : line) {
-            if (!std::isspace(static_cast<unsigned char>(c))) {
-                cleaned += c;
-            }
-        }
 
-        if (cleaned.empty()) {
+        std::stringstream ss(line);
+        std::string command;
+        ss >> command;
+
+        if (command.empty()) {
             continue;
         }
-
         try {
-            instructions.push_back(Instruction::fromString(cleaned));
+            if (command == "DUP") {
+                auto dup_instructions = Instruction::createDup();
+                this->appendInstructions(dup_instructions);
+
+            }
+
+            else if (command == "ILOAD") {
+                int x;
+                ss >> x;
+            
+                auto iload_instructions = Instruction::createIload(x);
+                this->appendInstructions(iload_instructions);
+            }
+
+            else if (command == "BIPUSH") {
+                std::string byte;
+                ss >> byte;
+
+                auto bipush_instructions = Instruction::createBipush(byte);
+                this->appendInstructions(bipush_instructions);
+            }
+
+            else {
+                for (char c : line) {
+                    if (!std::isspace(static_cast<unsigned char>(c))) {
+                        cleaned += c;
+                    }
+                }
+
+                if (cleaned.empty()) {
+                    continue;
+                }
+
+                try {
+                    instructions.push_back(Instruction::fromString(cleaned));
+                } catch (const std::exception& e) {
+                    throw std::runtime_error(
+                        "Erro na linha " + std::to_string(lineNumber) + ": " + e.what()
+                    );
+                }
+            }
         } catch (const std::exception& e) {
             throw std::runtime_error(
                 "Erro na linha " + std::to_string(lineNumber) + ": " + e.what()
@@ -63,4 +102,8 @@ const Instruction& ProgramMemory::getInstruction(std::size_t index) const {
     }
 
     return instructions[index];
+}
+
+void ProgramMemory::appendInstructions(const std::vector<Instruction>& newInstr) {
+    instructions.insert(instructions.begin(), newInstr.begin(), newInstr.end());
 }

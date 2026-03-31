@@ -14,6 +14,8 @@ class ProgramMemory {
 private:
     std::vector<Instruction> instructions;
 
+    void appendInstructions(const std::vector<Instruction>& newInstr);
+
 public:
     /**
      * @brief Carrega as instruções a partir de um arquivo texto.
