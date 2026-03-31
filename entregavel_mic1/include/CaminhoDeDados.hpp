@@ -51,6 +51,8 @@ private:
   Registers registers;
   ALU alu;
 
+  void bipushFetch(const std::string &byte);
+
 public:
   /**
    * @brief inicializador padrão

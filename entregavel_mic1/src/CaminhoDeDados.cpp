@@ -243,23 +243,30 @@ CDresult CaminhoDeDados::execute(const Instruction &instruction) {
   result.s_opc = registers.getRegisterValue("opc");
   result.s_h = registers.getRegisterValue("h");
 
-  const ALUResult aluResult =
-      alu.execute(registers.getRegisterValue("h"), entrada_b, instruction);
-  result.c_bus = seletor(instruction.getcBits());
-
-  for (std::string name : result.c_bus) {
-    registers.setRegisterValue(name, aluResult.sd);
-  }
-
   std::string memoryBits = instruction.getMemoryBits();
 
-  if (memoryBits[0] == '1') {
-    writeAtMemory();
-  }
-  if (memoryBits[1] == '1') {
-    readFromMemory();
+  if (memoryBits[0] == '1' && memoryBits[1] == '1') {
+    bipushFetch(instruction.getulaBits());
   }
 
+  else {
+    const ALUResult aluResult =
+        alu.execute(registers.getRegisterValue("h"), entrada_b, instruction);
+    result.c_bus = seletor(instruction.getcBits());
+  
+    for (std::string name : result.c_bus) {
+      registers.setRegisterValue(name, aluResult.sd);
+    }
+  
+  
+    if (memoryBits[0] == '1') {
+      writeAtMemory();
+    }
+    if (memoryBits[1] == '1') {
+      readFromMemory();
+    }
+  }
+  
   result.e_mar = registers.getRegisterValue("mar");
   result.e_mdr = registers.getRegisterValue("mdr");
   result.e_pc = registers.getRegisterValue("pc");
@@ -272,4 +279,10 @@ CDresult CaminhoDeDados::execute(const Instruction &instruction) {
   result.e_h = registers.getRegisterValue("h");
 
   return result;
+}
+
+void CaminhoDeDados::bipushFetch(const std::string &byte) {
+  size_t transformed_byte = std::stoull(byte, nullptr, 2);
+  registers.setRegisterValue("mbr", transformed_byte);
+  registers.setRegisterValue("h", transformed_byte);
 }
