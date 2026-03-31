@@ -73,9 +73,9 @@ std::vector<Instruction> Instruction::createIload(const int &x) {
   // H = LV
   instructions.push_back(Instruction::fromString("00110100100000000000101"));
 
-  for(int i=0; i < x; i++) {
+  for (int i = 0; i < x; i++) {
     // H = H + 1
-    instructions.push_back(Instruction::fromString("00111000100000000000000"));
+    instructions.push_back(Instruction::fromString("00111001100000000000000"));
   }
 
   // MAR = H; rd
@@ -84,7 +84,7 @@ std::vector<Instruction> Instruction::createIload(const int &x) {
   instructions.push_back(Instruction::fromString("00110101000001001100100"));
   // TOS = MDR
   instructions.push_back(Instruction::fromString("00110100001000000000000"));
-  
+
   return instructions;
 }
 

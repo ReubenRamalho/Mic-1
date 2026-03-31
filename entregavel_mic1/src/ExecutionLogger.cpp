@@ -94,10 +94,14 @@ void ExecutionLogger::writeCycle(std::size_t cycle, const Registers &registers,
   out << "b_bus = " << result.b_bus << "\n";
 
   out << "c_bus = ";
-  for (int i = 0; i < result.c_bus.size() - 1; i++) {
+  for (int i = 0; i < ((int)result.c_bus.size()) - 1; i++) {
     out << result.c_bus[i] << ", ";
   }
-  out << result.c_bus.back() << "\n\n";
+  if (!result.c_bus.empty()) {
+    out << result.c_bus.back() << "\n\n";
+  } else {
+    out << "\n\n";
+  }
 
   out << "> Registers before instruction\n";
 
